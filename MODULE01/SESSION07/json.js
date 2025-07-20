@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var myModule = require("./module");
+var jsonString = "{\"students\":[{\"name\":\"dimas\"}]}";
+var json = JSON.parse(jsonString);
+console.log(json);
+console.log(json.students[0].name);
+var jsonStringAgain = JSON.stringify(json);
+console.log(jsonStringAgain);
+console.log(" data from module => ", myModule.data);
