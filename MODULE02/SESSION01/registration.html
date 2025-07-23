@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {
+            color: #009b97;
+        }
+
+        #name-label {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 onclick="alert('Please regis this')"> Registration </h1>
+    <fieldset>
+        <legend> Registration Form </legend>
+        <form action="./success.html" method="get">
+            <table>
+                <tr>
+                    <td><label id="name-label"> Name </label></td>
+                    <td><input placeholder="Please insert your name ... " type="text" name="name" required /></td>
+                </tr>
+                <tr>
+                    <td><label> Email </label></td>
+                    <td><input type="email" name="email" required /></td>
+                </tr>
+                <tr>
+                    <td><label> Password </label></td>
+                    <td><input type="password" name="pass" /></td>
+                </tr>
+                <tr>
+                    <td><label> Birthdate </label></td>
+                    <td><input type="date" name="birthdate" /></td>
+                </tr>
+                <tr>
+                    <td><label> Program </label></td>
+                    <td>
+                        <select name="program">
+                            <option value=""> -- Program -- </option>
+                            <option value="1"> Web Development </option>
+                            <option value="2"> Data Science </option>
+                            <option value="3"> Digital Marketing </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label> Address </label></td>
+                    <td><textarea cols="50" rows="10" name="address"></textarea></td>
+                </tr>
+                <tr style="text-align: center;">
+
+                    <td colspan="2">
+                        <button type="reset"> Clear </button>
+                        <button type="button" onclick="
+                        let hobby = prompt('please tell your hobby ...')
+                        alert('Your hobby is '+hobby)
+                    "> Fill </button>
+                        <button type="submit" onclick="confirm('are you sure you want to regis ?')"> Submit </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</body>
+
+</html>
