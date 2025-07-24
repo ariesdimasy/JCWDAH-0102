@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .static {
+            position: static;
+            border: 1px solid black
+        }
+
+        .relative {
+            position: relative;
+            border: 1px solid red;
+            left: 30px;
+        }
+
+        .absolute {
+            position: absolute;
+            top: 200px;
+            left: 300px;
+        }
+
+        .fixed {
+            background-color: brown;
+            color: white;
+            height: 50px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            line-height: 50px;
+        }
+
+        /* @media screen and (max-width:480px) {
+            body {
+                background-color: lightgreen;
+            }
+
+        } */
+
+        @media screen and (min-width:320px) and (max-width:480px) {
+            body {
+                background-color: cornflowerblue;
+            }
+        }
+
+        @media screen and (min-width:481px) and (max-width:768px) {
+            body {
+                background-color: greenyellow;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2> Position : Static </h2>
+    <p> Here is static example </p>
+    <div class="static"> static position </div>
+
+    <h2> Position : Relative </h2>
+    <p> Here is relative example </p>
+    <div class="relative"> relative position </div>
+
+    <h2> Position : absolute </h2>
+    <p> Here is absolute example </p>
+    <div class="relative"> this is relative position
+        <div class="absolute"> this is absolute position </div>
+    </div>
+
+    <div> the quick brown fox jump over a lazy dog</div>
+
+    <div class="absolute"> hello world </div>
+    <div class="absolute"> hello dimas </div>
+
+    <h2> Position : fixed </h2>
+    <p> Here is fixed example </p>
+    <div class="fixed">
+        <marquee>the quick brown fox jump over a lazy dog</marquee>
+    </div>
+
+    <h2> Position : Static </h2>
+    <p> Here is static example </p>
+    <div class="static"> static position </div>
+
+    <h2> Position : Relative </h2>
+    <p> Here is relative example </p>
+    <div class="relative"> relative position </div>
+
+    <h2> Position : absolute </h2>
+    <p> Here is absolute example </p>
+    <div class="relative"> this is relative position
+        <div class="absolute"> this is absolute position </div>
+    </div>
+
+    <div> the quick brown fox jump over a lazy dog</div>
+
+    <div class="absolute"> hello world </div>
+    <div class="absolute"> hello dimas </div>
+
+
+
+</body>
+
+</html>
