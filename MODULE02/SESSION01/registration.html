@@ -7,17 +7,35 @@
     <title>Document</title>
     <style>
         h1 {
-            color: #009b97;
+            color: white;
+            background-color: coral;
+            text-align: center;
+            border: 10px dotted blue;
+            font-size: 100px;
+        }
+
+        form {
+            background-color: darkcyan;
         }
 
         #name-label {
             color: red;
+            background-color: brown;
+        }
+
+        #my-legend {
+            font-size: 40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: right;
         }
     </style>
 </head>
 
 <body>
     <h1 onclick="alert('Please regis this')"> Registration </h1>
+    <div id="my-legend">
+        <marquee> Please fill the form</marquee>
+    </div>
     <fieldset>
         <legend> Registration Form </legend>
         <form action="./success.html" method="get">
