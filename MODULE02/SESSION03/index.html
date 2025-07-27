@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <h1> Hello World </h1>
+    <h1> Gutten Tag</h1>
+    <button onclick="say('Hello World')"> Say it</button>
+    <button class="changeText"> Change Text </button>
+    <script src="./index.js"></script>
+    <script>
+        function changeText() {
+            let h1 = document.getElementsByTagName('h1')
+            h1[1].innerHTML = "<marquee direction='right' truespeed='600'> Konnichiwa </marquee>"
+            h1[0].innerText = "<i> Guten Tag </i>"
+
+            h1[1].style.color = 'blue'
+            h1[1].style.backgroundColor = "green"
+        }
+
+        let changetext = document.getElementsByClassName("changeText")
+        changetext[0].addEventListener("click", changeText)
+    </script>
+</body>
+
+</html>
