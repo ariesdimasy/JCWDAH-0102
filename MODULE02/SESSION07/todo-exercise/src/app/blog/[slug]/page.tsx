@@ -1,6 +1,4 @@
-export async function generateMetadata({ params, searchParams }, parent: any) {
-  const slug = params.slug;
-
+export async function generateMetadata() {
   const blogs = await fetch(`http://localhost:3000/api/`).then((res) =>
     res.json()
   );

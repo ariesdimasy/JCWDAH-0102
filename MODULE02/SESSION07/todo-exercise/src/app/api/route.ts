@@ -1,4 +1,4 @@
-export async function GET(request: Request) {
+export async function GET() {
     return await Response.json([
         {
             title: "berita heboh",

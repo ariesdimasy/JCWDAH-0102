@@ -1,9 +1,40 @@
 "use client";
-import { useState, useEffect } from "react";
+import {
+  useState,
+  useEffect,
+  JSXElementConstructor,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+} from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-export default function TodoID(props: any) {
+export default function TodoID(props: {
+  params: {
+    id:
+      | string
+      | number
+      | bigint
+      | boolean
+      | ReactElement<unknown, string | JSXElementConstructor<any>>
+      | Iterable<ReactNode>
+      | ReactPortal
+      | Promise<
+          | string
+          | number
+          | bigint
+          | boolean
+          | ReactPortal
+          | ReactElement<unknown, string | JSXElementConstructor<any>>
+          | Iterable<ReactNode>
+          | null
+          | undefined
+        >
+      | null
+      | undefined;
+  };
+}) {
   const router = useRouter();
   const [numbers, setNumbers] = useState([]);
 
