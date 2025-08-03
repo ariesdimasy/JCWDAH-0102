@@ -1,7 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
 import style from "./todolist.module.css";
 import {
+  Alert,
   TextField,
   Accordion,
   AccordionSummary,
@@ -12,11 +15,31 @@ import {
 import axios from "axios";
 // import { ExpandMoreIcon } from "@mui/icons-material";
 
+const TodoSchema = yup.object().shape({
+  title: yup.string().min(5, "title min char are 5").required(),
+  description: yup.string().min(10, "description min char are 10").required(),
+});
+
 export default function Todolist() {
   const [todolist, setTodolist] = useState([]);
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  //   const [title, setTitle] = useState<string>("");
+  //   const [description, setDescription] = useState<string>("");
+
+  const formik = useFormik({
+    validationSchema: TodoSchema,
+    initialValues: {
+      title: "",
+      description: "",
+    },
+    onSubmit: (values) => {
+      addTodoList({
+        title: values.title,
+        description: values.description,
+      });
+      fetchTodolist();
+    },
+  });
 
   const fetchTodolist = async () => {
     const res = await axios.get(
@@ -37,9 +60,6 @@ export default function Todolist() {
         description: values.description,
       }
     );
-    setTitle("");
-    setDescription("");
-    fetchTodolist();
   };
 
   useEffect(() => {
@@ -52,31 +72,32 @@ export default function Todolist() {
       <div className={style.container}>
         <h1 className={style.h1}> TODO </h1>
         <TextField
-          value={title}
+          value={formik.values.title}
           className={style.input}
           id="title"
           label="Title"
           variant="outlined"
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={formik.handleChange}
         />
+        {formik.errors.title && (
+          <Alert severity="error">{formik.errors.title}</Alert>
+        )}
         <TextField
-          value={description}
+          value={formik.values.description}
           className={style.input}
           id="description"
           label="Description"
           multiline
           rows={4}
           variant="outlined"
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={formik.handleChange}
         />
+        {formik.errors.description && (
+          <Alert severity="error">{formik.errors.description}</Alert>
+        )}
         <Button
           type="button"
-          onClick={() =>
-            addTodoList({
-              title: title,
-              description: description,
-            })
-          }
+          onClick={formik.handleSubmit}
           style={{ width: "100%" }}
           variant="contained"
         >
