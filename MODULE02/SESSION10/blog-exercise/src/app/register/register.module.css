@@ -1,0 +1,22 @@
+.main {
+    width: 320px;
+    height: 100vh;
+    padding: 0 10px;
+   
+    margin: 0 auto;
+    padding-top: 80px;
+}
+
+.main h1 {
+    text-align: center;
+}
+
+.main h2 {
+    text-align: center;
+}
+
+.main section {
+    padding: 20px 0;
+}
+
+
