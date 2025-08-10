@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
 
 export const metadata: Metadata = {
   title: "My Blog",
@@ -10,5 +12,9 @@ export default function BlogDetailLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <ErrorBoundary errorComponent={Error}>{children}</ErrorBoundary>
+    </div>
+  );
 }
