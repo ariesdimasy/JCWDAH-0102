@@ -14,10 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./config/db"));
+const student_router_1 = __importDefault(require("./routers/student.router"));
 const app = (0, express_1.default)();
 const port = 8000;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use("/api/students", student_router_1.default);
 // Simple route to test connection
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -28,27 +30,28 @@ app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: 'Database error' });
     }
 }));
-// Example: Get all actors
-app.get('/actors', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield db_1.default.query('SELECT * FROM actor');
-        res.json(result.rows);
-    }
-    catch (err) {
-        res.status(500).json({ error: 'Database error' });
-    }
-}));
-// Example: Add a actor
-app.post('/actors', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { first_name, last_name } = req.body;
-    try {
-        const result = yield db_1.default.query('INSERT INTO actor (first_name, last_name) VALUES ($1, $2) RETURNING *', [first_name, last_name]);
-        res.status(201).json(result.rows[0]);
-    }
-    catch (err) {
-        res.status(500).json({ error: 'Database error' });
-    }
-}));
+// // Example: Get all actors
+// app.get('/actors', async (req: Request, res: Response) => {
+//     try {
+//         const result = await pool.query('SELECT * FROM actor');
+//         res.json(result.rows);
+//     } catch (err) {
+//         res.status(500).json({ error: 'Database error' });
+//     }
+// });
+// // Example: Add a actor
+// app.post('/actors', async (req: Request, res: Response) => {
+//     const { first_name, last_name } = req.body;
+//     try {
+//         const result = await pool.query(
+//             'INSERT INTO actor (first_name, last_name) VALUES ($1, $2) RETURNING *',
+//             [first_name, last_name]
+//         );
+//         res.status(201).json(result.rows[0]);
+//     } catch (err) {
+//         res.status(500).json({ error: 'Database error' });
+//     }
+// });
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });

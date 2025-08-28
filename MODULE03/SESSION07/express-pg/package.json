@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "npx nodemon dist/index.js",
+    "start": "npx nodemon index.ts",
     "dev": "tsc ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
