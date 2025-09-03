@@ -13,6 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getArticleList = getArticleList;
+exports.getArticleDetail = getArticleDetail;
+exports.createArticle = createArticle;
+exports.updateArticle = updateArticle;
+exports.deleteArticle = deleteArticle;
 const prisma_1 = __importDefault(require("../config/prisma"));
 function getArticleList(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -21,6 +25,99 @@ function getArticleList(req, res) {
             res.status(200).send({
                 message: "fetch article list success",
                 data: articles
+            });
+        }
+        catch (err) {
+            res.status(500).send({
+                message: JSON.stringify(err),
+            });
+        }
+    });
+}
+function getArticleDetail(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const article = yield prisma_1.default.post.findUnique({
+                where: {
+                    id: Number(id)
+                }
+            });
+            res.status(200).send({
+                message: "fetch article detail success",
+                data: article
+            });
+        }
+        catch (err) {
+            res.status(500).send({
+                message: JSON.stringify(err),
+            });
+        }
+    });
+}
+function createArticle(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(" user session = ", res.locals.user);
+            const { title, description, category } = req.body;
+            const article = yield prisma_1.default.post.create({
+                data: {
+                    title,
+                    description,
+                    category
+                }
+            });
+            res.status(200).send({
+                message: "create article success",
+                data: article
+            });
+        }
+        catch (err) {
+            res.status(500).send({
+                message: JSON.stringify(err),
+            });
+        }
+    });
+}
+function updateArticle(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const { title, description, category } = req.body;
+            const article = yield prisma_1.default.post.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    title,
+                    description,
+                    category
+                }
+            });
+            res.status(200).send({
+                message: "update article success",
+                data: article
+            });
+        }
+        catch (err) {
+            res.status(500).send({
+                message: JSON.stringify(err),
+            });
+        }
+    });
+}
+function deleteArticle(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.params;
+            const article = yield prisma_1.default.post.delete({
+                where: {
+                    id: Number(id)
+                }
+            });
+            res.status(200).send({
+                message: "delete article success",
+                data: article
             });
         }
         catch (err) {

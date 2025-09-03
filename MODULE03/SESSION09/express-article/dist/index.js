@@ -5,11 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const article_route_1 = __importDefault(require("./routers/article.route"));
+const auth_route_1 = __importDefault(require("./routers/auth.route"));
 const PORT = 8800;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/api/articles", article_route_1.default);
+app.use("/api/auth", auth_route_1.default);
 app.get("/", (req, res) => {
     res.send({
         "message": "Welcome to API articles"

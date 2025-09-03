@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import prisma from "../config/prisma";
 import { hash, genSalt, compare } from "bcrypt"
 import { sign } from "jsonwebtoken";
-import { env } from "node:process"
-
 // dotenv.config({ path: './../.env' })
 
 export async function login(req: Request, res: Response) {
@@ -31,12 +29,14 @@ export async function login(req: Request, res: Response) {
             })
         }
 
-        const jwtPayload = { email: check.email, role: check.role }
+        const jwtPayload = { id: check.id, email: check.email, role: check.role }
+        console.log(" jwtPayload : ", jwtPayload)
         const token = await sign(jwtPayload, "myScretKey", { expiresIn: '1h' })
 
         res.status(200).send({
             message: "login success",
             data: {
+                id: check?.id,
                 name: check?.name,
                 email: check?.email,
                 token: token
@@ -44,7 +44,8 @@ export async function login(req: Request, res: Response) {
         })
 
     } catch (err) {
-        res.status(500).send({
+        console.log(err)
+        res.status(200).send({
             message: JSON.stringify(err),
             data: null
         })

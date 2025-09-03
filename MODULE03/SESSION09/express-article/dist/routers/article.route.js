@@ -2,6 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const article_controller_1 = require("../controllers/article.controller");
+const jwt_library_1 = require("../libraries/jwt.library");
 const router = (0, express_1.Router)();
 router.get("/", article_controller_1.getArticleList);
+router.get("/:id", article_controller_1.getArticleDetail);
+router.post("/", jwt_library_1.verifyToken, article_controller_1.createArticle);
+router.put("/:id", jwt_library_1.verifyToken, article_controller_1.updateArticle);
+router.delete("/:id", jwt_library_1.verifyToken, article_controller_1.deleteArticle);
 exports.default = router;

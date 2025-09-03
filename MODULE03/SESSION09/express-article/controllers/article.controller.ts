@@ -44,13 +44,16 @@ export async function getArticleDetail(req: Request, res: Response) {
 export async function createArticle(req: Request, res: Response) {
     try {
 
+        console.log(" user session = ", res.locals.user)
+
         const { title, description, category } = req.body
 
         const article = await prisma.post.create({
             data: {
                 title,
                 description,
-                category
+                category,
+                user_id: res.locals.user.id
             }
         })
 
