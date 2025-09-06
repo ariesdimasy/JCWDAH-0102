@@ -47,13 +47,15 @@ export async function createArticle(req: Request, res: Response) {
         console.log(" user session = ", res.locals.user)
 
         const { title, description, category } = req.body
+        const { file } = req
 
         const article = await prisma.post.create({
             data: {
                 title,
                 description,
                 category,
-                user_id: res.locals.user.id
+                user_id: res.locals.user.id,
+                image: file?.filename
             }
         })
 

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import prisma from "../config/prisma";
 import { hash, genSalt, compare } from "bcrypt"
 import { sign } from "jsonwebtoken";
+import { transporter } from "../helpers/nodemailer";
 // dotenv.config({ path: './../.env' })
 
 export async function login(req: Request, res: Response) {
@@ -82,6 +83,13 @@ export async function register(req: Request, res: Response) {
             data: {
                 name, email, password: hashPassword
             }
+        })
+
+        await transporter.sendMail({
+            from: "alhusna901@gmail.com",
+            to: email,
+            subject: "thanks for register",
+            html: "welcome to our site"
         })
 
         res.status(200).send({

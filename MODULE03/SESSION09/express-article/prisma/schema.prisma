@@ -19,6 +19,7 @@ model Post {
   title       String   @unique() @db.VarChar(255)
   description String   @db.Text()
   category    String   @db.VarChar(100)
+  image       String?  @db.VarChar(100)
   user_id     Int
   user        User     @relation(fields: [user_id], references: [id])
   created_at  DateTime @default(now()) @db.Timestamp()
