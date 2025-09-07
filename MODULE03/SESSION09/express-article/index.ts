@@ -1,6 +1,8 @@
-import express, { Request, Response } from "express"
+import express, { NextFunction, Request, Response, ErrorRequestHandler } from "express"
 import articleRouter from "./routers/article.route"
 import authRouter from "./routers/auth.route"
+import logHandleError from "./middlewares/logHandleError.middleware"
+import { errorHandler } from "./middlewares/errorHandler"
 
 const PORT = 8800
 
@@ -17,6 +19,10 @@ app.get("/", (req: Request, res: Response) => {
         "message": "Welcome to API articles"
     })
 })
+
+app.use(errorHandler)
+
+
 
 app.listen(PORT, () => {
     console.log("application running on port : ", PORT)

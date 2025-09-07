@@ -1,10 +1,32 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import prisma from "../config/prisma";
+import { memcachedClient } from "../config/memcached";
+import logHandleError from "../middlewares/logHandleError.middleware";
+import { AppError } from "../errors/AppError";
 
 export async function getArticleList(req: Request, res: Response) {
     try {
 
-        const articles = await prisma.post.findMany()
+        const checkKey = "posts"
+        const cacheResult = await memcachedClient.get(checkKey)
+
+        if (cacheResult.value) {
+            const cachePosts = JSON.parse(cacheResult.value.toString())
+            return res.status(200).json({
+                message: "get articles success",
+                data: cachePosts
+            })
+        }
+
+        const articles = await prisma.post.findMany({
+
+        })
+
+        console.table(articles)
+
+        await memcachedClient.set(checkKey, JSON.stringify(articles), {
+            expires: 300
+        })
 
         res.status(200).send({
             message: "fetch article list success",
@@ -12,6 +34,8 @@ export async function getArticleList(req: Request, res: Response) {
         })
 
     } catch (err) {
+        console.error(err)
+
         res.status(500).send({
             message: JSON.stringify(err),
         })
@@ -29,6 +53,10 @@ export async function getArticleDetail(req: Request, res: Response) {
             }
         })
 
+        if (!article) {
+            throw new AppError("User Not Found", 404, true)
+        }
+
         res.status(200).send({
             message: "fetch article detail success",
             data: article
@@ -41,10 +69,10 @@ export async function getArticleDetail(req: Request, res: Response) {
     }
 }
 
-export async function createArticle(req: Request, res: Response) {
+export async function createArticle(req: Request, res: Response, next: NextFunction) {
     try {
 
-        console.log(" user session = ", res.locals.user)
+        //console.log(" user session = ", res.locals.user)
 
         const { title, description, category } = req.body
         const { file } = req
@@ -65,6 +93,7 @@ export async function createArticle(req: Request, res: Response) {
         })
 
     } catch (err) {
+
         res.status(500).send({
             message: JSON.stringify(err),
         })
